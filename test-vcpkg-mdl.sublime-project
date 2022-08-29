@@ -1,0 +1,165 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"cmake",
+				"--build",
+				"--preset", "build-x64-windows"
+			],
+			"env":
+			{
+				// "CLICOLOR_FORCE": "1",
+			},
+			"file_regex": "^[ ]*(.+?)\\(([0-9]+)\\)[ ]*: (.*)$",
+			"name": "test-vcpkg-mdl (Ninja)",
+			"variants":
+			[
+				{
+					"cmd":
+					[
+						"rm", "build/x64-windows/CMakeCache.txt"
+					],
+					"name": "Delete CMake Cache",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--preset", "x64-windows"
+					],
+					"name": "Configure",
+				},
+				{
+					"cmd":
+					[
+						"ninja",
+						"-C", "build/x64-windows",
+						"-t", "clean"
+					],
+					"name": "Clean",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--build",
+						"--preset", "build-x64-windows",
+						"--config", "Debug",
+						"--target", "sample-core"
+					],
+					"name": "sample-core (Debug)",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--build",
+						"--preset", "build-x64-windows",
+						"--config", "Debug",
+						"--target", "sample-sdk"
+					],
+					"name": "sample-sdk (Debug)",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--build",
+						"--preset", "build-x64-windows",
+						"--config", "Debug",
+						"--target", "mdl_core-calls"
+					],
+					"name": "mdl_core-calls (Debug)",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--build",
+						"--preset", "build-x64-windows",
+						"--config", "Debug",
+						"--target", "mdl_core-df_cuda"
+					],
+					"name": "mdl_core-df_cuda (Debug)",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--build",
+						"--preset", "build-x64-windows",
+						"--config", "Release",
+						"--target", "mdl_core-df_cuda"
+					],
+					"name": "mdl_core-df_cuda (Release)",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--build",
+						"--preset", "build-x64-windows",
+						"--config", "Debug",
+						"--target", "mdl_core-execution_cuda"
+					],
+					"name": "mdl_core-execution_cuda (Debug)",
+				},
+				{
+					"cmd":
+					[
+						"cmake",
+						"--build",
+						"--preset", "build-x64-windows",
+						"--config", "Debug",
+						"--target", "mdl_core-execution_cuda_ptx"
+					],
+					"name": "mdl_core-execution_cuda_ptx (Debug)",
+				},
+				{
+					"cmd":
+					[
+						"build/x64-windows/Debug/sample"
+					],
+					"name": "Run Sample",
+				},
+				{
+					"cmd":
+					[
+						"ninja",
+						"-C", "build/x64-windows",
+						"test"
+					],
+					"name": "Test",
+				},
+				{
+					"cmd":
+					[
+						"ninja",
+						"-C", "build/x64-windows",
+						"-f", "build-Debug.ninja",
+						"-k", "20",
+						"-v",
+						"$file^"
+					],
+					"name": "Single File [verbose] (Debug)",
+					"selector": "source.c++",
+				}
+			],
+			"working_dir": "$project_path",
+		}
+	],
+	"folders":
+	[
+		{
+			"path": ".",
+		},
+		{
+			"path": "../vcpkg/installed/x64-windows",
+		},
+		{
+			"path": "../MDL-SDK",
+		},
+	],
+}

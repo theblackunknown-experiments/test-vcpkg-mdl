@@ -1,0 +1,12 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+    "name": "test-vcpkg-mdl",
+    "version": "0",
+    "dependencies": [
+        "freeimage",
+        "glew",
+        "glfw3",
+        { "name": "imgui", "features": [ "glfw-binding", "opengl3-binding" ] },
+        { "name": "mdl", "features": [ "dds", "freeimage" ] }
+    ]
+}
